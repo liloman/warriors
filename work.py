@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 ################################################################################
 ##
-## Copyright 2015 - 2016, Paul Beckingham, Federico Hernandez, liloman
+## Copyright 2016, liloman
 ##
 ## Permission is hereby granted, free of charge, to any person obtaining a copy
 ## of this software and associated documentation files (the "Software"), to deal
@@ -31,9 +31,6 @@ import json
 from datetime import datetime, timedelta
 
 def formatSeconds(seconds):
-  ''' Convert seconds: 3661
-      To formatted:    0 days 1:01:01
-  '''
   sec = timedelta(seconds=int(seconds))
   d = datetime(1,1,1) + sec
   if d.day == 1: 
@@ -77,15 +74,20 @@ for object in j:
 
    
   if 'tags' in object:
+      exit = 0
       key = ""
       #Concat the tags
       for tag in object['tags']:
         key += tag + " "
+        if tag in ("Shutdown","Suspend","pomodoro_timeout"):
+          exit = 1
+          break
 
-      if key in totals:
-        totals[key] += tracked
-      else:
-        totals[key] = tracked
+      if exit == 0:
+        if key in totals:
+          totals[key] += tracked
+        else:
+          totals[key] = tracked
   else:
       totals["No tagged"] = tracked
 
