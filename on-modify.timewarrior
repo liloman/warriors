@@ -36,29 +36,30 @@ import os
 # Make no changes to the task, simply observe.
 old = json.loads(sys.stdin.readline())
 new = json.loads(sys.stdin.readline())
+#don't modify any output
 print(json.dumps(new))
 
-# Extract attributes for use as tags.
-tags = [new['description']]
-#empty project
-project = [" "]
+#Extract attributes for use as tags.
+desc = new['description'].encode('utf-8')
+tags = ""
+project = ""
 
 if 'tags' in new:
-  tags.extend(new['tags'])
+  #if it has the notimew tag don't track it then ;)
+  for tag in new['tags']:
+    if tag == "notimew":
+      exit(0)
+    else:
+      tags+=' "+'+tag+'"'
 
 if 'project' in new:
-  project.append(new['project'])
-
-combined = ' '.join(['"%s"' % tag for tag in tags]).encode('utf-8').strip()
-combined += ' pro:'.join(project).encode('utf-8')
-
-#print "combined final: %s" %  combined 
+    project = "pro:"+new['project']
 
 # Started task.
 if 'start' in new and not 'start' in old:
-  os.system('timew start ' + combined + ' :yes')
+    os.system('timew start "'+ desc +'" "'+ project +'" '+ tags +' :yes :quiet')
 
 # Stopped task.
 elif not 'start' in new and 'start' in old:
-  os.system('timew stop ' + combined + ' :yes')
+    os.system('timew stop :quiet')
 
