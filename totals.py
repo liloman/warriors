@@ -80,8 +80,9 @@ for object in j:
       key = ""
       #Concat the tags
       for tag in object['tags']:
-        key += tag + " "
+        key += tag + " / "
 
+      key=key[:-2]
       if key in totals:
         totals[key] += tracked
       else:

@@ -78,10 +78,11 @@ for object in j:
       key = ""
       #Concat the tags
       for tag in object['tags']:
-        key += tag + " "
+        key += tag + " / "
         if tag in ("Shutdown","Suspend","pomodoro_timeout"):
           exit = 1
           break
+      key=key[:-2]
 
       if exit == 0:
         if key in totals:
@@ -112,7 +113,7 @@ if max_width > 0:
   if configuration['color'] == 'on':
     print '[4m%-*s[0m [4m%15s[0m' % (max_width, 'Tag', 'Total')
   else:
-    print '%-*s %10s' % (max_width, 'Tag', 'Total')
+    print '%-*s %10s' % (max_width, 'Tags', 'Total')
     print '-' * max_width, '-------------------'
 
   # Compose table rows.
