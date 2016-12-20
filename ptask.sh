@@ -38,11 +38,11 @@ taskjoin() {
     local active=n
 
     echo "Where do you want to join the tasks from:"
-    select from in "Active task" "Any project";
+    select from in "Pending task" "Any project";
     do
         case $from in
             Active*)
-                for id in $(task _ids); do
+                for id in $(task status:pending _ids); do
                     project=$(task _get $id.project)
                     description=$(task _get $id.description)
                     projects[$((++i))]="[$project]$id-$description"
