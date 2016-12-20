@@ -176,8 +176,8 @@ reminder() {
 #Set a notification on x time ahead
 notify() {
     local options=""
-    #can't use another value cause systemd-run destroy the process otherwise?
-    local duration=0
+    #It's in ms!
+    local duration=$((15*1000))
     read  -p "What's the purpose?:"  issue
     read  -p "How long should it wait? (ex: 10s,3m,1h,...):"  time
 
