@@ -17,7 +17,7 @@ do
         from=${BASH_REMATCH[1]} 
         to=${BASH_REMATCH[2]}
         duration=${BASH_REMATCH[3]}
-        exec="timew track from $from - $to Shutdown"
+        exec="timew track from $from - $to Shutdown +nowork"
         echo executing: $exec
         $exec
     fi
