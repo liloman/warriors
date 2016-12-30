@@ -40,7 +40,7 @@ new = json.loads(sys.stdin.readline())
 print(json.dumps(new))
 
 #Extract attributes for use as tags.
-desc = new['description'].encode('utf-8')
+desc = u''.join(new['description']).encode('utf-8').strip()
 tags = ""
 project = ""
 
@@ -53,7 +53,7 @@ if 'tags' in new:
       tags+=' "+'+tag+'"'
 
 if 'project' in new:
-    project = "pro:"+new['project']
+    project = "pro:"+u''.join(new['project']).encode('utf-8').strip() 
 
 # Started task.
 if 'start' in new and not 'start' in old:

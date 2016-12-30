@@ -80,9 +80,12 @@ for object in j:
       key = ""
       #Concat the tags
       for tag in object['tags']:
-        key += tag + " / "
+        stag=u''.join(tag).encode('utf-8').strip()
+        key += stag + " / "
 
-      key=key[:-2]
+      #eliminate the / and trim the leading/ending spaces
+      key=key[:-2].strip()
+
       if key in totals:
         totals[key] += tracked
       else:
@@ -101,6 +104,10 @@ for tag in totals:
 
 
 if max_width > 0:
+  # sane value for 110 columns max = (110 - 15(formatted) )
+  max_columns = 92
+  if max_width > max_columns:
+      max_width = max_columns
   start = datetime.strptime(configuration['temp.report.start'], DATEFORMAT)
   end   = datetime.strptime(configuration['temp.report.end'],   DATEFORMAT)
 
@@ -114,14 +121,17 @@ if max_width > 0:
     print '%-*s %10s' % (max_width, 'Tag', 'Total')
     print '-' * max_width, '-------------------'
 
-  # Compose table rows.
   grand_total = 0
 
-  # Sort by time
+  # Compose table rows.Sorted by time
   for tag in sorted(totals,key=totals.get,reverse=False):
     formatted = formatSeconds(totals[tag])
     grand_total += totals[tag]
-    print '%-*s %10s' % (max_width, tag, formatted)
+    if max_width == max_columns:
+        # left 5 columns between the tag text and the time column
+        print '%-*s %10s' % (max_columns, tag[:max_columns-5], formatted)
+    else:
+        print '%-*s %10s' % (max_width, tag, formatted)
     
   # Compose total.
   if configuration['color'] == 'on':
