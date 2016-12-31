@@ -189,16 +189,20 @@ notify() {
 #                                     MAIN                                     #
 ################################################################################
 usage() {
-    echo " $software [options]"
-    echo ""
-    echo " Taskwarrior options:"
-    echo "  join        Join several tasks in one(wizard)"
-    echo "  tema        Añade un nuevo tema a trabajar"
-    echo "  notify      Add a temporal notification"
-    echo "  reminder    Add a reminder"
-    echo " General options:"
-    echo "  -h, --help  Show this help"
-    echo "  -v          Show version"
+    local msg=(
+    "$software option"
+    ""
+    "Taskwarrior options:"
+    "  join        Join several tasks in one(wizard)"
+    "  tema        Añade un nuevo tema a trabajar"
+    "  notify      Add a temporal notification"
+    "  reminder    Add a reminder"
+    "General options:"
+    "  -h, --help  Show this help"
+    "  -v          Show version"
+    )
+
+    printf '%s\n' "${msg[@]}"
 } 
 
 
