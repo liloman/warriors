@@ -57,9 +57,9 @@ if 'project' in new:
 
 # Started task.
 if 'start' in new and not 'start' in old:
-    os.system('timew start "'+ desc +'" "'+ project +'" '+ tags +' :yes :quiet')
+    os.system('timew start "'+ desc +'" "'+ project +'" '+ tags +' :yes ')
 
 # Stopped task.
 elif not 'start' in new and 'start' in old:
-    os.system('timew stop :quiet')
+    os.system('timew stop ')
 
