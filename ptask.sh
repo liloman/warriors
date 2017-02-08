@@ -162,7 +162,7 @@ reminder() {
     fi
 
 
-    local make_reminder="task add '$desc' pro:tasks due:$due wait:${wait_days} until:due+1d recur:$recurrence +reminder +notimew rc.dateformat="D/M/Y""
+    local make_reminder="task add '$desc' pro:tasks due:$due wait:${wait_days} until:due+1d recur:$recurrence +reminder  rc.dateformat="D/M/Y""
     echo "$make_reminder"
     echo "Are you sure?"
     select yn in Yes No; do
