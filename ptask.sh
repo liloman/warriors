@@ -91,7 +91,7 @@ newtema() {
         local tag="+2017"
         local desc1="Leer tema $number"
         local desc2="Hacer resumen del tema $number"
-        local desc1="Repaso tema del $number"
+        local desc3="Repaso tema del $number"
         task add "$desc1" pro:opos.tema$number $tag
         task add "$desc2" pro:opos.tema$number $tag
         task add "$desc3" pro:opos.tema$number $tag
